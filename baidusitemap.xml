@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>http://aotmicdevelop.com/blog/2017/09/15/%E5%BC%B9%E5%BC%B9%E5%BC%B9%20%E6%89%93%E9%80%A0%E4%B8%87%E8%83%BD%E5%BC%B9%E6%80%A7layout/</loc>
+    <lastmod>2017-09-15T13:18:42.809Z</lastmod>
+    <data>
+        <display>
+        <title>弹弹弹 打造万能弹性layout</title>
+        <pubTime>2017-09-15T13:18:42.805Z</pubTime>
+        
+        <tag>Android</tag>
+         
+        <tag>自定义View</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://aotmicdevelop.com/blog/categories/Android/"/>
+          
+             
+              <breadCrumb title="自定义View" url="http://aotmicdevelop.com/blog/categories/Android/%E8%87%AA%E5%AE%9A%E4%B9%89View/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://aotmicdevelop.com/blog/2017/09/15/SpringBoot%20%E6%95%B4%E5%90%88SpringMvc%20%E5%8E%9F%E7%90%86%E6%8E%A2%E7%A9%B6%EF%BC%88DispatchServlet%E6%B7%BB%E5%8A%A0%E6%B5%81%E7%A8%8B%EF%BC%89/</loc>
+    <lastmod>2017-09-15T13:18:15.297Z</lastmod>
+    <data>
+        <display>
+        <title>SpringBoot 整合SpringMvc 原理探究（DispatchServlet添加流程）</title>
+        <pubTime>2017-09-15T13:18:15.293Z</pubTime>
+        
+        <tag>SpringBoot</tag>
+         
+        <tag>SpringMvc</tag>
+         
+         
+           
+             
+              <breadCrumb title="SpringBoot" url="http://aotmicdevelop.com/blog/categories/SpringBoot/"/>
+          
+             
+              <breadCrumb title="SpringMvc" url="http://aotmicdevelop.com/blog/categories/SpringBoot/SpringMvc/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://aotmicdevelop.com/blog/2017/09/15/SpringMvc%20%E4%BD%A0%E8%AF%A5%E7%9F%A5%E9%81%93%E5%A6%82%E4%BD%95%E5%9C%A8HandlerExceptionResolver%E4%B8%AD%E8%8E%B7%E5%8F%96Model/</loc>
+    <lastmod>2017-09-15T13:16:47.860Z</lastmod>
+    <data>
+        <display>
+        <title>SpringMvc 你该知道如何在HandlerExceptionResolver中获取Model</title>
+        <pubTime>2017-09-15T13:16:47.773Z</pubTime>
+        
+        <tag>SpringMvc</tag>
+         
+         
+           
+             
+              <breadCrumb title="SpringMvc" url="http://aotmicdevelop.com/blog/categories/SpringMvc/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://aotmicdevelop.com/blog/2017/09/15/SpringBoot%20%E6%95%B4%E5%90%88SpringBatch%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE%E6%94%B9%E9%80%A0/</loc>
+    <lastmod>2017-09-15T13:16:18.122Z</lastmod>
+    <data>
+        <display>
+        <title>SpringBoot 整合SpringBatch实际项目改造</title>
+        <pubTime>2017-09-15T13:16:18.118Z</pubTime>
+        
+        <tag>SpringBatch</tag>
+         
+        <tag>SpringBoot</tag>
+         
+         
+           
+             
+              <breadCrumb title="SpringBoot" url="http://aotmicdevelop.com/blog/categories/SpringBoot/"/>
+          
+             
+              <breadCrumb title="SpringBatch" url="http://aotmicdevelop.com/blog/categories/SpringBoot/SpringBatch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+  <url>
+    <loc>http://aotmicdevelop.com/blog/2017/09/15/java.lang.IllegalArgumentException%20An%20invalid%20domain%20%5B.test.com%5D%20was%20specified%20for%20this%20cookie/</loc>
+    <lastmod>2017-09-15T12:16:16.220Z</lastmod>
+    <data>
+        <display>
+        <title>java.lang.IllegalArgumentException An invalid domain [.test.com] was specified for this cookie</title>
+        <pubTime>2017-09-15T12:16:16.220Z</pubTime>
+        
+        <tag>Java</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://aotmicdevelop.com/blog/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://aotmicdevelop.com/blog/2017/09/15/Rabbitmq%20%E6%95%B4%E5%90%88Spring,SpringBoot%E4%B8%8EDocker/</loc>
+    <lastmod>2017-09-15T12:16:16.204Z</lastmod>
+    <data>
+        <display>
+        <title>Rabbitmq 整合Spring,SpringBoot与Docker</title>
+        <pubTime>2017-09-15T12:16:16.204Z</pubTime>
+        
+        <tag>Docker</tag>
+         
+        <tag>RabbitMq</tag>
+         
+         
+           
+             
+              <breadCrumb title="SpringBoot" url="http://aotmicdevelop.com/blog/categories/SpringBoot/"/>
+          
+             
+              <breadCrumb title="RabbitMq" url="http://aotmicdevelop.com/blog/categories/SpringBoot/RabbitMq/"/>
+          
+             
+              <breadCrumb title="Docker" url="http://aotmicdevelop.com/blog/categories/SpringBoot/RabbitMq/Docker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://aotmicdevelop.com/blog/2017/09/15/SpringBatch%E5%BC%82%E5%B8%B8To%20use%20the%20default%20BatchConfigurer%20the%20context%20must%20contain%20no%20more%20thanone%20DataSource/</loc>
+    <lastmod>2017-09-15T12:16:16.204Z</lastmod>
+    <data>
+        <display>
+        <title>SpringBatch异常To use the default BatchConfigurer the context must contain no more thanone DataSource</title>
+        <pubTime>2017-09-15T12:16:16.204Z</pubTime>
+        
+        <tag>SpringBatch</tag>
+         
+         
+           
+             
+              <breadCrumb title="SpringBatch" url="http://aotmicdevelop.com/blog/categories/SpringBatch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://aotmicdevelop.com/blog/2017/09/15/RxJava%E4%B9%8B%E5%B9%B6%E5%8F%91%E5%A4%84%E7%90%86%EF%BC%88SerializedSubject%EF%BC%89/</loc>
+    <lastmod>2017-09-15T12:16:16.204Z</lastmod>
+    <data>
+        <display>
+        <title>RxJava之并发处理（SerializedSubject）</title>
+        <pubTime>2017-09-15T12:16:16.204Z</pubTime>
+        
+        <tag>RxJava</tag>
+         
+         
+           
+             
+              <breadCrumb title="RxJava" url="http://aotmicdevelop.com/blog/categories/RxJava/"/>
+          
+             
+              <breadCrumb title="Java" url="http://aotmicdevelop.com/blog/categories/RxJava/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://aotmicdevelop.com/blog/2017/09/15/An%20invalid%20domain%20%5B.test.com%5D%20was%20specified%20for%20this%20cookie%20%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2017-09-15T12:16:16.204Z</lastmod>
+    <data>
+        <display>
+        <title>An invalid domain [.test.com] was specified for this cookie 原因分析</title>
+        <pubTime>2017-09-15T12:16:16.204Z</pubTime>
+        
+        <tag>Java</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://aotmicdevelop.com/blog/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://aotmicdevelop.com/blog/2017/09/14/SpringBoot%20%E4%B8%BAMapperScan%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E6%89%AB%E6%8F%8F(%E5%8D%A0%E4%BD%8D%E7%AC%A6)%E5%8A%9F%E8%83%BD/</loc>
+    <lastmod>2017-09-14T13:00:52.416Z</lastmod>
+    <data>
+        <display>
+        <title>SpringBoot 为MapperScan添加动态扫描(占位符)功能</title>
+        <pubTime>2017-09-14T12:47:11.846Z</pubTime>
+        
+        <tag>SpringBoot</tag>
+         
+        <tag>Mybatis</tag>
+         
+         
+           
+             
+              <breadCrumb title="SpringBoot" url="http://aotmicdevelop.com/blog/categories/SpringBoot/"/>
+          
+             
+              <breadCrumb title="Mybatis" url="http://aotmicdevelop.com/blog/categories/SpringBoot/Mybatis/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://aotmicdevelop.com/blog/2017/09/14/Springboot%20Mybatis%20%E6%89%93%E5%8C%85jar%E6%89%AB%E6%8F%8Fbean%E4%B8%8Emapper%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6%E4%B8%8E%E8%A7%A3%E5%86%B3/</loc>
+    <lastmod>2017-09-14T13:00:31.399Z</lastmod>
+    <data>
+        <display>
+        <title>Springboot Mybatis 打包jar扫描bean与mapper问题研究与解决</title>
+        <pubTime>2017-09-14T12:42:01.874Z</pubTime>
+        
+        <tag>SpringBoot</tag>
+         
+        <tag>Mybatis</tag>
+         
+        <tag>打包</tag>
+         
+         
+           
+             
+              <breadCrumb title="SpringBoot" url="http://aotmicdevelop.com/blog/categories/SpringBoot/"/>
+          
+             
+              <breadCrumb title="Mybatis" url="http://aotmicdevelop.com/blog/categories/SpringBoot/Mybatis/"/>
+          
+        </display>
+    </data>
+    </url>
+
+</urlset>
