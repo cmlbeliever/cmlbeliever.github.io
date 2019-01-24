@@ -6,7 +6,7 @@
   <link href="/cmlbeliever.github.io/atom.xml" rel="self"/>
   
   <link href="https://cmlbeliever.github.io/cmlbeliever.github.io/"/>
-  <updated>2019-01-24T13:18:46.386Z</updated>
+  <updated>2019-01-24T13:35:10.617Z</updated>
   <id>https://cmlbeliever.github.io/cmlbeliever.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://cmlbeliever.github.io/cmlbeliever.github.io/2019/01/24/SLB-Deploy/"/>
     <id>https://cmlbeliever.github.io/cmlbeliever.github.io/2019/01/24/SLB-Deploy/</id>
     <published>2019-01-24T13:11:57.000Z</published>
-    <updated>2019-01-24T13:18:46.386Z</updated>
+    <updated>2019-01-24T13:35:10.617Z</updated>
     
-    <content type="html"><![CDATA[<p>又是新的一年了，距离上一次写文章已经过了2个多月了，作为新年的第一篇文章，对最近使用SLB的心得进行总结，作为以后备注，也可以让各位读者少走一点坑。</p><p>SLB使用的是阿里云的服务，服务A有多个实例部署在不同服务器上的docker容器中。对外通过SLB进行负载，调用方只需要通过访问SLB就可以将请求均匀的分布到不同服务器的A服务中。</p><p>阿里云同时还提供接口的方式操作SLB，可以动态的上下线服务，官方文档：<a href="https://help.aliyun.com/document_detail/27566.html?spm=5176.10609282.905295.38.6b0d3801v5OcOg" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/27566.html?spm=5176.10609282.905295.38.6b0d3801v5OcOg</a> 这里主要使用到了AddBackendServers和RemoveBackendServers对SLB进行操作，在应用发布前，调用RemoveBackendServers将此服务器从SLB中摘除，等待发布完成后，调用AddBackendServers将服务挂载到SLB，这样就可以实现滚动发布了。（接口调用都已经集成到Jenkins上了，只需要在Jenkins上点击发布就好）。</p><p>这种方式使用了几天后，在我们的ELK监控上就发现了问题，在每次下线服务后，调用方就会报出好几个超时错误SocketTimeoutException，而且通过监控可以看出在每次下线服务器后都会报出同样的错误。</p><p>经过一番调查后发现，直接摘除后端服务的话，会导致当前已经连上的请求直接被中断，所以客户端就会接连报出超时错误。</p><p>问题找到了，就非常好解决了。在AddBackendServers接口中发现可以设置权值，于是将发布流程优化成：</p><ol><li>将需要发布的服务器的权值设置为0（防止新的流量进入）</li><li>等待一段时间（SLB设置的超时时间）+2s，（确保之前的请求都完成了）</li><li>将此服务器从SLB上摘除</li><li>进行服务发布</li><li>将服务器挂载到SLB上</li><li>设置权值</li></ol><p>通过以上步骤优化后，就再也没有出现过之前的错误了，完美的实现了滚动发布。</p><p>在调查的过程中，还看到了官方的最佳实践：<a href="https://helpcdn.aliyun.com/document_detail/57399.html" target="_blank" rel="noopener">https://helpcdn.aliyun.com/document_detail/57399.html</a> 官方使用的是通过心跳监测机制，将SLB自动剔除。但是这种通过文件的方式在目前容器化的服务中是行不通的，而且也复杂了，可以优化成：</p><ol><li>提供自定义的health接口</li><li>下线前将通过接口调用的方式，通知health接口返回500的错误</li><li>等待SLB心跳多次检测后发现服务不可用，将此服务器标记为异常，且不在转发流量</li><li>发布服务</li><li>等待SLB自动完成心跳检测</li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上两种方式都能实现SLB的滚动发布，可以根据实际情况进行选择，各有优缺点，总结如下：<br>|  |接口方式  |health方式|<br>|–|–|–|<br>| 优点|  方便控制，可以动态设置权重|除了设置health接口不可用外，无需其他操作|<br>|  缺点| 需要实时注意SLB的超时时间，需要调用SLB的接口|依赖SLB的自动监测机制，跟SLB配置相关大，时间不可控|</p>]]></content>
+    <content type="html"><![CDATA[<p>又是新的一年了，距离上一次写文章已经过了2个多月了，作为新年的第一篇文章，对最近使用SLB的心得进行总结，作为以后备注，也可以让各位读者少走一点坑。</p><p>SLB使用的是阿里云的服务，服务A有多个实例部署在不同服务器上的docker容器中。对外通过SLB进行负载，调用方只需要通过访问SLB就可以将请求均匀的分布到不同服务器的A服务中。</p><p>阿里云同时还提供接口的方式操作SLB，可以动态的上下线服务，官方文档：<a href="https://help.aliyun.com/document_detail/27566.html?spm=5176.10609282.905295.38.6b0d3801v5OcOg" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/27566.html?spm=5176.10609282.905295.38.6b0d3801v5OcOg</a> 这里主要使用到了AddBackendServers和RemoveBackendServers对SLB进行操作，在应用发布前，调用RemoveBackendServers将此服务器从SLB中摘除，等待发布完成后，调用AddBackendServers将服务挂载到SLB，这样就可以实现滚动发布了。（接口调用都已经集成到Jenkins上了，只需要在Jenkins上点击发布就好）。</p><p>这种方式使用了几天后，在我们的ELK监控上就发现了问题，在每次下线服务后，调用方就会报出好几个超时错误SocketTimeoutException，而且通过监控可以看出在每次下线服务器后都会报出同样的错误。</p><p>经过一番调查后发现，直接摘除后端服务的话，会导致当前已经连上的请求直接被中断，所以客户端就会接连报出超时错误。</p><p>问题找到了，就非常好解决了。在AddBackendServers接口中发现可以设置权值，于是将发布流程优化成：</p><ol><li>将需要发布的服务器的权值设置为0（防止新的流量进入）</li><li>等待一段时间（SLB设置的超时时间）+2s，（确保之前的请求都完成了）</li><li>将此服务器从SLB上摘除</li><li>进行服务发布</li><li>将服务器挂载到SLB上</li><li>设置权值</li></ol><p>通过以上步骤优化后，就再也没有出现过之前的错误了，完美的实现了滚动发布。</p><p>在调查的过程中，还看到了官方的最佳实践：<a href="https://helpcdn.aliyun.com/document_detail/57399.html" target="_blank" rel="noopener">https://helpcdn.aliyun.com/document_detail/57399.html</a> 官方使用的是通过心跳监测机制，将SLB自动剔除。但是这种通过文件的方式在目前容器化的服务中是行不通的，而且也复杂了，可以优化成：</p><ol><li>提供自定义的health接口</li><li>下线前将通过接口调用的方式，通知health接口返回500的错误</li><li>等待SLB心跳多次检测后发现服务不可用，将此服务器标记为异常，且不在转发流量</li><li>发布服务</li><li>等待SLB自动完成心跳检测</li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上两种方式都能实现SLB的滚动发布，可以根据实际情况进行选择，各有优缺点，总结如下：</p><table><thead><tr><th></th><th>接口方式</th><th>health方式</th></tr></thead><tbody><tr><td>优点</td><td>方便控制，可以动态设置权重</td><td>除了设置health接口不可用外，无需其他操作</td></tr><tr><td>缺点</td><td>需要实时注意SLB的超时时间，需要调用SLB的接口</td><td>依赖SLB的自动监测机制，跟SLB配置相关大，时间不可控</td></tr></tbody></table>]]></content>
     
     <summary type="html">
     
@@ -376,6 +376,38 @@
   </entry>
   
   <entry>
+    <title>Rabbitmq 整合Spring,SpringBoot与Docker</title>
+    <link href="https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/Rabbitmq%20%E6%95%B4%E5%90%88Spring,SpringBoot%E4%B8%8EDocker/"/>
+    <id>https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/Rabbitmq 整合Spring,SpringBoot与Docker/</id>
+    <published>2017-09-15T12:16:16.204Z</published>
+    <updated>2017-09-15T12:16:16.204Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近开始研究消息队列框架Rabbitmq，之前对消息队列只是有个基本概念而已。至于使用场景也局限于发送邮件，发送系统消息等。</p><p>既然开始学习了，首先上官网把基本概念撸清除后，再看看Spring官方整合文档<a href="http://docs.spring.io/spring-amqp/docs/current/reference/html/_reference.html#remoting" target="_blank" rel="noopener">AMQP</a>，基本上摸清了套路。</p><p>项目开始前的准备：<br>工欲善其事必先利其器，首先得安装Rabbitmq。这里推荐使用docker进行安装。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1. 获取镜像： docker pull rabbitmq:management </span><br><span class="line">2. 执行命令 docker run -d --name rabbitmq --publish 5671:5671 \ --publish 5672:5672 --publish 4369:4369 --publish 25672:25672 --publish 15671:15671 --publish 15672:15672 \rabbitmq:management</span><br><span class="line">3. 查看docker容器ip:docker-machine ip</span><br><span class="line">4. 根据获取的ip，在浏览器上访问:http://$&#123;ip&#125;:15672 打开管理页面，则说明rabbitmq安装成功</span><br></pre></td></tr></table></figure><p><img src="http://img.blog.csdn.net/20170714143813506?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY21sX2Jsb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p><p>安装好Rabbitmq后，将SpringBootLearning工程clone下来</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git.oschina.net/cmlbeliever/SpringBootLearning.git</span><br></pre></td></tr></table></figure><p>或</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/cmlbeliever/SpringBootLearning.git</span><br></pre></td></tr></table></figure><p>项目是放在两个git托管服务上的，因为github有的时候会访问失败，所以就加了一个国内的托管服务。</p><p>工程clone下来后，进入到rabbitmq目录。根据README上的说明进行操作即可。</p><p>Spring的配置文件分成发送端和接收端配置。发送端负责发送特定的消息，接收端负责接收不同quene下的消息进行相应的处理，工程上只是log出来了。</p><p>目前集成了Exchagne类型有topic，fanout，direct。还添加了手动确认消息的demo。</p><p>工程运行成功后，可以看到执行后接收到消息的log：<br><img src="http://img.blog.csdn.net/20170714145003280?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY21sX2Jsb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p><p>至于配置，工程上都有。每个配置的意义，官网上说的很详细了，网上其他人博客也说的很多了，这里就不赘述了。</p><p><strong>SpringBootLearning是对Springboot与其他框架学习与研究项目，是根据实际项目的形式对进行配置与处理，欢迎star与fork。</strong><br>[oschina 地址]<br><a href="http://git.oschina.net/cmlbeliever/SpringBootLearning" target="_blank" rel="noopener">http://git.oschina.net/cmlbeliever/SpringBootLearning</a><br>[github 地址]<br><a href="https://github.com/cmlbeliever/SpringBootLearning" target="_blank" rel="noopener">https://github.com/cmlbeliever/SpringBootLearning</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近开始研究消息队列框架Rabbitmq，之前对消息队列只是有个基本概念而已。至于使用场景也局限于发送邮件，发送系统消息等。&lt;/p&gt;
+&lt;p&gt;既然开始学习了，首先上官网把基本概念撸清除后，再看看Spring官方整合文档&lt;a href=&quot;http://docs.spring.i
+      
+    
+    </summary>
+    
+      <category term="SpringBoot" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/categories/SpringBoot/"/>
+    
+      <category term="RabbitMq" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/categories/SpringBoot/RabbitMq/"/>
+    
+      <category term="Docker" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/categories/SpringBoot/RabbitMq/Docker/"/>
+    
+    
+      <category term="Docker" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/tags/Docker/"/>
+    
+      <category term="RabbitMq" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/tags/RabbitMq/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SpringBatch异常To use the default BatchConfigurer the context must contain no more thanone DataSource</title>
     <link href="https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/SpringBatch%E5%BC%82%E5%B8%B8To%20use%20the%20default%20BatchConfigurer%20the%20context%20must%20contain%20no%20more%20thanone%20DataSource/"/>
     <id>https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/SpringBatch异常To use the default BatchConfigurer the context must contain no more thanone DataSource/</id>
@@ -449,38 +481,6 @@
     
     
       <category term="Java" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Rabbitmq 整合Spring,SpringBoot与Docker</title>
-    <link href="https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/Rabbitmq%20%E6%95%B4%E5%90%88Spring,SpringBoot%E4%B8%8EDocker/"/>
-    <id>https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/Rabbitmq 整合Spring,SpringBoot与Docker/</id>
-    <published>2017-09-15T12:16:16.204Z</published>
-    <updated>2017-09-15T12:16:16.204Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近开始研究消息队列框架Rabbitmq，之前对消息队列只是有个基本概念而已。至于使用场景也局限于发送邮件，发送系统消息等。</p><p>既然开始学习了，首先上官网把基本概念撸清除后，再看看Spring官方整合文档<a href="http://docs.spring.io/spring-amqp/docs/current/reference/html/_reference.html#remoting" target="_blank" rel="noopener">AMQP</a>，基本上摸清了套路。</p><p>项目开始前的准备：<br>工欲善其事必先利其器，首先得安装Rabbitmq。这里推荐使用docker进行安装。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1. 获取镜像： docker pull rabbitmq:management </span><br><span class="line">2. 执行命令 docker run -d --name rabbitmq --publish 5671:5671 \ --publish 5672:5672 --publish 4369:4369 --publish 25672:25672 --publish 15671:15671 --publish 15672:15672 \rabbitmq:management</span><br><span class="line">3. 查看docker容器ip:docker-machine ip</span><br><span class="line">4. 根据获取的ip，在浏览器上访问:http://$&#123;ip&#125;:15672 打开管理页面，则说明rabbitmq安装成功</span><br></pre></td></tr></table></figure><p><img src="http://img.blog.csdn.net/20170714143813506?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY21sX2Jsb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p><p>安装好Rabbitmq后，将SpringBootLearning工程clone下来</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git.oschina.net/cmlbeliever/SpringBootLearning.git</span><br></pre></td></tr></table></figure><p>或</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/cmlbeliever/SpringBootLearning.git</span><br></pre></td></tr></table></figure><p>项目是放在两个git托管服务上的，因为github有的时候会访问失败，所以就加了一个国内的托管服务。</p><p>工程clone下来后，进入到rabbitmq目录。根据README上的说明进行操作即可。</p><p>Spring的配置文件分成发送端和接收端配置。发送端负责发送特定的消息，接收端负责接收不同quene下的消息进行相应的处理，工程上只是log出来了。</p><p>目前集成了Exchagne类型有topic，fanout，direct。还添加了手动确认消息的demo。</p><p>工程运行成功后，可以看到执行后接收到消息的log：<br><img src="http://img.blog.csdn.net/20170714145003280?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY21sX2Jsb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p><p>至于配置，工程上都有。每个配置的意义，官网上说的很详细了，网上其他人博客也说的很多了，这里就不赘述了。</p><p><strong>SpringBootLearning是对Springboot与其他框架学习与研究项目，是根据实际项目的形式对进行配置与处理，欢迎star与fork。</strong><br>[oschina 地址]<br><a href="http://git.oschina.net/cmlbeliever/SpringBootLearning" target="_blank" rel="noopener">http://git.oschina.net/cmlbeliever/SpringBootLearning</a><br>[github 地址]<br><a href="https://github.com/cmlbeliever/SpringBootLearning" target="_blank" rel="noopener">https://github.com/cmlbeliever/SpringBootLearning</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;最近开始研究消息队列框架Rabbitmq，之前对消息队列只是有个基本概念而已。至于使用场景也局限于发送邮件，发送系统消息等。&lt;/p&gt;
-&lt;p&gt;既然开始学习了，首先上官网把基本概念撸清除后，再看看Spring官方整合文档&lt;a href=&quot;http://docs.spring.i
-      
-    
-    </summary>
-    
-      <category term="SpringBoot" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/categories/SpringBoot/"/>
-    
-      <category term="RabbitMq" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/categories/SpringBoot/RabbitMq/"/>
-    
-      <category term="Docker" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/categories/SpringBoot/RabbitMq/Docker/"/>
-    
-    
-      <category term="Docker" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/tags/Docker/"/>
-    
-      <category term="RabbitMq" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/tags/RabbitMq/"/>
     
   </entry>
   
