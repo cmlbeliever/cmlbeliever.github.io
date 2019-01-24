@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cmlbeliever.github.io/cmlbeliever.github.io/2019/01/24/SLB-Deploy/</loc>
+    
+    <lastmod>2019-01-24T13:18:46.386Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cmlbeliever.github.io/cmlbeliever.github.io/2018/11/20/redis-script/</loc>
     
     <lastmod>2018-11-20T13:19:45.617Z</lastmod>
@@ -107,6 +114,13 @@
   </url>
   
   <url>
+    <loc>https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/Rabbitmq%20%E6%95%B4%E5%90%88Spring,SpringBoot%E4%B8%8EDocker/</loc>
+    
+    <lastmod>2017-09-15T12:16:16.204Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/SpringBatch%E5%BC%82%E5%B8%B8To%20use%20the%20default%20BatchConfigurer%20the%20context%20must%20contain%20no%20more%20thanone%20DataSource/</loc>
     
     <lastmod>2017-09-15T12:16:16.204Z</lastmod>
@@ -115,13 +129,6 @@
   
   <url>
     <loc>https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/RxJava%E4%B9%8B%E5%B9%B6%E5%8F%91%E5%A4%84%E7%90%86%EF%BC%88SerializedSubject%EF%BC%89/</loc>
-    
-    <lastmod>2017-09-15T12:16:16.204Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/Rabbitmq%20%E6%95%B4%E5%90%88Spring,SpringBoot%E4%B8%8EDocker/</loc>
     
     <lastmod>2017-09-15T12:16:16.204Z</lastmod>
     
