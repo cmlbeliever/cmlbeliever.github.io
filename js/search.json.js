@@ -54,7 +54,7 @@
             html = data.map(function(post) {
                 return tpl(searchTpl, {
                     title: post.title,
-                    path: "/"+post.path,
+                    path: ""+post.path,
                     date: new Date(post.date).toLocaleDateString(),
                     tags: post.tags.map(function(tag) {
                         return '<span>' + tag.name + '</span>';

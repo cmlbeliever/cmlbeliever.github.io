@@ -376,38 +376,6 @@
   </entry>
   
   <entry>
-    <title>Rabbitmq 整合Spring,SpringBoot与Docker</title>
-    <link href="https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/Rabbitmq%20%E6%95%B4%E5%90%88Spring,SpringBoot%E4%B8%8EDocker/"/>
-    <id>https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/Rabbitmq 整合Spring,SpringBoot与Docker/</id>
-    <published>2017-09-15T12:16:16.204Z</published>
-    <updated>2017-09-15T12:16:16.204Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近开始研究消息队列框架Rabbitmq，之前对消息队列只是有个基本概念而已。至于使用场景也局限于发送邮件，发送系统消息等。</p><p>既然开始学习了，首先上官网把基本概念撸清除后，再看看Spring官方整合文档<a href="http://docs.spring.io/spring-amqp/docs/current/reference/html/_reference.html#remoting" target="_blank" rel="noopener">AMQP</a>，基本上摸清了套路。</p><p>项目开始前的准备：<br>工欲善其事必先利其器，首先得安装Rabbitmq。这里推荐使用docker进行安装。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1. 获取镜像： docker pull rabbitmq:management </span><br><span class="line">2. 执行命令 docker run -d --name rabbitmq --publish 5671:5671 \ --publish 5672:5672 --publish 4369:4369 --publish 25672:25672 --publish 15671:15671 --publish 15672:15672 \rabbitmq:management</span><br><span class="line">3. 查看docker容器ip:docker-machine ip</span><br><span class="line">4. 根据获取的ip，在浏览器上访问:http://$&#123;ip&#125;:15672 打开管理页面，则说明rabbitmq安装成功</span><br></pre></td></tr></table></figure><p><img src="http://img.blog.csdn.net/20170714143813506?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY21sX2Jsb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p><p>安装好Rabbitmq后，将SpringBootLearning工程clone下来</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git.oschina.net/cmlbeliever/SpringBootLearning.git</span><br></pre></td></tr></table></figure><p>或</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/cmlbeliever/SpringBootLearning.git</span><br></pre></td></tr></table></figure><p>项目是放在两个git托管服务上的，因为github有的时候会访问失败，所以就加了一个国内的托管服务。</p><p>工程clone下来后，进入到rabbitmq目录。根据README上的说明进行操作即可。</p><p>Spring的配置文件分成发送端和接收端配置。发送端负责发送特定的消息，接收端负责接收不同quene下的消息进行相应的处理，工程上只是log出来了。</p><p>目前集成了Exchagne类型有topic，fanout，direct。还添加了手动确认消息的demo。</p><p>工程运行成功后，可以看到执行后接收到消息的log：<br><img src="http://img.blog.csdn.net/20170714145003280?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY21sX2Jsb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p><p>至于配置，工程上都有。每个配置的意义，官网上说的很详细了，网上其他人博客也说的很多了，这里就不赘述了。</p><p><strong>SpringBootLearning是对Springboot与其他框架学习与研究项目，是根据实际项目的形式对进行配置与处理，欢迎star与fork。</strong><br>[oschina 地址]<br><a href="http://git.oschina.net/cmlbeliever/SpringBootLearning" target="_blank" rel="noopener">http://git.oschina.net/cmlbeliever/SpringBootLearning</a><br>[github 地址]<br><a href="https://github.com/cmlbeliever/SpringBootLearning" target="_blank" rel="noopener">https://github.com/cmlbeliever/SpringBootLearning</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;最近开始研究消息队列框架Rabbitmq，之前对消息队列只是有个基本概念而已。至于使用场景也局限于发送邮件，发送系统消息等。&lt;/p&gt;
-&lt;p&gt;既然开始学习了，首先上官网把基本概念撸清除后，再看看Spring官方整合文档&lt;a href=&quot;http://docs.spring.i
-      
-    
-    </summary>
-    
-      <category term="SpringBoot" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/categories/SpringBoot/"/>
-    
-      <category term="RabbitMq" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/categories/SpringBoot/RabbitMq/"/>
-    
-      <category term="Docker" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/categories/SpringBoot/RabbitMq/Docker/"/>
-    
-    
-      <category term="Docker" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/tags/Docker/"/>
-    
-      <category term="RabbitMq" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/tags/RabbitMq/"/>
-    
-  </entry>
-  
-  <entry>
     <title>SpringBatch异常To use the default BatchConfigurer the context must contain no more thanone DataSource</title>
     <link href="https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/SpringBatch%E5%BC%82%E5%B8%B8To%20use%20the%20default%20BatchConfigurer%20the%20context%20must%20contain%20no%20more%20thanone%20DataSource/"/>
     <id>https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/SpringBatch异常To use the default BatchConfigurer the context must contain no more thanone DataSource/</id>
@@ -481,6 +449,38 @@
     
     
       <category term="Java" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rabbitmq 整合Spring,SpringBoot与Docker</title>
+    <link href="https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/Rabbitmq%20%E6%95%B4%E5%90%88Spring,SpringBoot%E4%B8%8EDocker/"/>
+    <id>https://cmlbeliever.github.io/cmlbeliever.github.io/2017/09/15/Rabbitmq 整合Spring,SpringBoot与Docker/</id>
+    <published>2017-09-15T12:16:16.204Z</published>
+    <updated>2017-09-15T12:16:16.204Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近开始研究消息队列框架Rabbitmq，之前对消息队列只是有个基本概念而已。至于使用场景也局限于发送邮件，发送系统消息等。</p><p>既然开始学习了，首先上官网把基本概念撸清除后，再看看Spring官方整合文档<a href="http://docs.spring.io/spring-amqp/docs/current/reference/html/_reference.html#remoting" target="_blank" rel="noopener">AMQP</a>，基本上摸清了套路。</p><p>项目开始前的准备：<br>工欲善其事必先利其器，首先得安装Rabbitmq。这里推荐使用docker进行安装。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1. 获取镜像： docker pull rabbitmq:management </span><br><span class="line">2. 执行命令 docker run -d --name rabbitmq --publish 5671:5671 \ --publish 5672:5672 --publish 4369:4369 --publish 25672:25672 --publish 15671:15671 --publish 15672:15672 \rabbitmq:management</span><br><span class="line">3. 查看docker容器ip:docker-machine ip</span><br><span class="line">4. 根据获取的ip，在浏览器上访问:http://$&#123;ip&#125;:15672 打开管理页面，则说明rabbitmq安装成功</span><br></pre></td></tr></table></figure><p><img src="http://img.blog.csdn.net/20170714143813506?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY21sX2Jsb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p><p>安装好Rabbitmq后，将SpringBootLearning工程clone下来</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git.oschina.net/cmlbeliever/SpringBootLearning.git</span><br></pre></td></tr></table></figure><p>或</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/cmlbeliever/SpringBootLearning.git</span><br></pre></td></tr></table></figure><p>项目是放在两个git托管服务上的，因为github有的时候会访问失败，所以就加了一个国内的托管服务。</p><p>工程clone下来后，进入到rabbitmq目录。根据README上的说明进行操作即可。</p><p>Spring的配置文件分成发送端和接收端配置。发送端负责发送特定的消息，接收端负责接收不同quene下的消息进行相应的处理，工程上只是log出来了。</p><p>目前集成了Exchagne类型有topic，fanout，direct。还添加了手动确认消息的demo。</p><p>工程运行成功后，可以看到执行后接收到消息的log：<br><img src="http://img.blog.csdn.net/20170714145003280?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY21sX2Jsb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p><p>至于配置，工程上都有。每个配置的意义，官网上说的很详细了，网上其他人博客也说的很多了，这里就不赘述了。</p><p><strong>SpringBootLearning是对Springboot与其他框架学习与研究项目，是根据实际项目的形式对进行配置与处理，欢迎star与fork。</strong><br>[oschina 地址]<br><a href="http://git.oschina.net/cmlbeliever/SpringBootLearning" target="_blank" rel="noopener">http://git.oschina.net/cmlbeliever/SpringBootLearning</a><br>[github 地址]<br><a href="https://github.com/cmlbeliever/SpringBootLearning" target="_blank" rel="noopener">https://github.com/cmlbeliever/SpringBootLearning</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近开始研究消息队列框架Rabbitmq，之前对消息队列只是有个基本概念而已。至于使用场景也局限于发送邮件，发送系统消息等。&lt;/p&gt;
+&lt;p&gt;既然开始学习了，首先上官网把基本概念撸清除后，再看看Spring官方整合文档&lt;a href=&quot;http://docs.spring.i
+      
+    
+    </summary>
+    
+      <category term="SpringBoot" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/categories/SpringBoot/"/>
+    
+      <category term="RabbitMq" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/categories/SpringBoot/RabbitMq/"/>
+    
+      <category term="Docker" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/categories/SpringBoot/RabbitMq/Docker/"/>
+    
+    
+      <category term="Docker" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/tags/Docker/"/>
+    
+      <category term="RabbitMq" scheme="https://cmlbeliever.github.io/cmlbeliever.github.io/tags/RabbitMq/"/>
     
   </entry>
   
